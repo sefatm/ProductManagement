@@ -12,6 +12,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
+import javax.swing.table.DefaultTableModel;
+import java.util.List;
+import static sun.net.www.MimeTable.loadTable;
+
+
 /**
  *
  * @author user
@@ -21,8 +26,12 @@ public class ProductCreateUI extends javax.swing.JFrame {
     /**
      * Creates new form ProductCreateUI
      */
+    DefaultTableModel model;
+
     public ProductCreateUI() {
         initComponents();
+        model = (DefaultTableModel) table.getModel();  // JTable connect
+        loadTable();
     }
 
     /**
@@ -45,6 +54,8 @@ public class ProductCreateUI extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         price = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        table = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,6 +106,19 @@ public class ProductCreateUI extends javax.swing.JFrame {
             }
         });
 
+        table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Code", "Product Name", "Quantity", "Price"
+            }
+        ));
+        jScrollPane1.setViewportView(table);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -128,8 +152,11 @@ public class ProductCreateUI extends javax.swing.JFrame {
                         .addGap(207, 207, 207)
                         .addComponent(btnSave)
                         .addGap(55, 55, 55)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(251, Short.MAX_VALUE))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(120, 120, 120)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(196, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,7 +183,9 @@ public class ProductCreateUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
                     .addComponent(jButton1))
-                .addContainerGap(232, Short.MAX_VALUE))
+                .addGap(79, 79, 79)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(246, Short.MAX_VALUE))
         );
 
         pack();
@@ -170,14 +199,17 @@ public class ProductCreateUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         ProductService ps = new ProductService();
         Product p = new Product();
+        
         p.setPcode(Integer.valueOf(pcode.getText()));
         p.setPname(pname.getText());
         p.setQty(Integer.valueOf(qty.getText()));
         p.setPrice(Double.valueOf(price.getText()));
+        
         int status = 0;
         try {
            status = ps.save(p);
            cleartext();
+           loadTable();
         } catch (SQLException e) {
            //System.out.println(e);
              Logger.getLogger(ProductCreateUI.class.getName()).log(Level.SEVERE, null, e);
@@ -194,6 +226,28 @@ public class ProductCreateUI extends javax.swing.JFrame {
             qty.setText("");
             price.setText("");
         }
+        
+        private void loadTable() {
+        try {
+        ProductService ps = new ProductService();
+        List<Product> list = ps.getAll();
+
+        model.setRowCount(0); // clear table
+
+        for(Product p : list){
+            model.addRow(new Object[]{
+                p.getPcode(),
+                p.getPname(),
+                p.getQty(),
+                p.getPrice()
+            });
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
     private void pcodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pcodeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pcodeActionPerformed
@@ -246,10 +300,12 @@ public class ProductCreateUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField pcode;
     private javax.swing.JTextField pname;
     private javax.swing.JTextField price;
     private javax.swing.JTextField qty;
+    private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }

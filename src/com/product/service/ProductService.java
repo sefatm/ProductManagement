@@ -78,6 +78,7 @@ public class ProductService {
         ResultSet rs = ps.executeQuery();
         while(rs.next()){
             Product p = new Product();
+            p.setPcode(rs.getInt("pcode"));
             p.setPname(rs.getString("pname"));
             p.setQty(rs.getInt("qty"));
             p.setPrice(rs.getDouble("price"));
