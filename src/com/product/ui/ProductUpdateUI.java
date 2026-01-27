@@ -237,7 +237,7 @@ public class ProductUpdateUI extends javax.swing.JFrame {
             status = ps.update(p);
             cleartext();
         } catch (SQLException e) {
-            Logger.getLogger(ProductUpdateUI1.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(ProductUpdateUI.class.getName()).log(Level.SEVERE, null, e);
         }
         if(status > 0)
             JOptionPane.showMessageDialog(rootPane, "Updated");
