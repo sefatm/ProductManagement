@@ -14,7 +14,6 @@ import javax.swing.JOptionPane;
 
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
-import static sun.net.www.MimeTable.loadTable;
 
 
 /**
@@ -184,8 +183,8 @@ public class ProductCreateUI extends javax.swing.JFrame {
                     .addComponent(btnSave)
                     .addComponent(jButton1))
                 .addGap(79, 79, 79)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(246, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(122, Short.MAX_VALUE))
         );
 
         pack();
