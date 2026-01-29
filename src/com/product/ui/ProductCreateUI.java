@@ -29,8 +29,8 @@ public class ProductCreateUI extends javax.swing.JFrame {
 
     public ProductCreateUI() {
         initComponents();
-        model = (DefaultTableModel) table.getModel();  // JTable connect
-        loadTable();
+        //model = (DefaultTableModel) table.getModel();
+        //loadTable();
     }
 
     /**
@@ -55,6 +55,7 @@ public class ProductCreateUI extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
+        btnShow = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -118,6 +119,13 @@ public class ProductCreateUI extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(table);
 
+        btnShow.setText("Show");
+        btnShow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShowActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -151,7 +159,9 @@ public class ProductCreateUI extends javax.swing.JFrame {
                         .addGap(207, 207, 207)
                         .addComponent(btnSave)
                         .addGap(55, 55, 55)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(71, 71, 71)
+                        .addComponent(btnShow))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(120, 120, 120)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -181,7 +191,8 @@ public class ProductCreateUI extends javax.swing.JFrame {
                 .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(btnShow))
                 .addGap(79, 79, 79)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(122, Short.MAX_VALUE))
@@ -231,7 +242,7 @@ public class ProductCreateUI extends javax.swing.JFrame {
         ProductService ps = new ProductService();
         List<Product> list = ps.getAll();
 
-        model.setRowCount(0); // clear table
+        model.setRowCount(0);
 
         for(Product p : list){
             model.addRow(new Object[]{
@@ -256,6 +267,12 @@ public class ProductCreateUI extends javax.swing.JFrame {
         setVisible(false);
         new ProductUpdateUI().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowActionPerformed
+        // TODO add your handling code here:
+        model = (DefaultTableModel) table.getModel();
+        loadTable();
+    }//GEN-LAST:event_btnShowActionPerformed
 
     /**
      * @param args the command line arguments
@@ -294,6 +311,7 @@ public class ProductCreateUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnShow;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
