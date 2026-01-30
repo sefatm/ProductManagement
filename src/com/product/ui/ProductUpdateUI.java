@@ -5,7 +5,7 @@
  */
 package com.product.ui;
 
-import com.product.model.Product;
+import com.product.model.ProductUI;
 import com.product.service.ProductService;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -194,7 +194,7 @@ public class ProductUpdateUI extends javax.swing.JFrame {
         int pcode = Integer.valueOf(this.pcode.getText());
         ProductService ps = new ProductService();
         try {
-            Product p = ps.getByID(pcode);
+            ProductUI p = ps.getByID(pcode);
             pname.setText(p.getPname());
             qty.setText(String.valueOf(p.getQty()));
             price.setText(String.valueOf(p.getPrice()));
@@ -227,7 +227,7 @@ public class ProductUpdateUI extends javax.swing.JFrame {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
         ProductService ps = new ProductService();
-        Product p = new Product();
+        ProductUI p = new ProductUI();
         p.setPcode(Integer.valueOf(pcode.getText()));
         p.setPname(pname.getText());
         p.setQty(Integer.valueOf(qty.getText()));

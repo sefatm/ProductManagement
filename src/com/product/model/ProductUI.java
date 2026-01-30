@@ -5,7 +5,7 @@ package com.product.model;
  *
  * @author user
  */
-public class Product {
+public class ProductUI {
     private int pcode;
     private String pname;
     private int qty;

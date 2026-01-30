@@ -1,7 +1,7 @@
 
 package com.product.ui;
 
-import com.product.model.Product;
+import com.product.model.ProductUI;
 import com.product.service.ProductService;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -194,7 +194,7 @@ public class ProductCreateUI extends javax.swing.JFrame {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
         ProductService ps = new ProductService();
-        Product p = new Product();
+        ProductUI p = new ProductUI();
         
         p.setPcode(Integer.valueOf(pcode.getText()));
         p.setPname(pname.getText());
@@ -225,11 +225,11 @@ public class ProductCreateUI extends javax.swing.JFrame {
         private void loadTable() {
         try {
         ProductService ps = new ProductService();
-        List<Product> list = ps.getAll();
+        List<ProductUI> list = ps.getAll();
         
         model.setRowCount(0);
 
-        for(Product p : list){
+        for(ProductUI p : list){
             model.addRow(new Object[]{
                 p.getPcode(),
                 p.getPname(),
@@ -237,8 +237,7 @@ public class ProductCreateUI extends javax.swing.JFrame {
                 p.getPrice()
             });
         }
-
-    } catch (SQLException e) {
+        } catch (SQLException e) {
         e.printStackTrace();
     }
 }

@@ -1,7 +1,7 @@
 
 package com.product.service;
 
-import com.product.model.Product;
+import com.product.model.ProductUI;
 import com.product.util.DBConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +18,7 @@ public class ProductService {
     
     Connection con;
     
-    public int save(Product p) throws SQLException{
+    public int save(ProductUI p) throws SQLException{
         con = DBConnection.getConnection();
         String sql = "insert into products (pcode, pname, qty, price) values (?, ?, ?, ?)";
         PreparedStatement ps = con.prepareStatement(sql);
@@ -30,7 +30,7 @@ public class ProductService {
         return status;
     }
     
-    public int update(Product p) throws SQLException{
+    public int update(ProductUI p) throws SQLException{
         con = DBConnection.getConnection();
         String sql = "update products set pname = ?, qty = ? , price = ? where pcode = ?";
         PreparedStatement ps = con.prepareStatement(sql);
@@ -51,13 +51,13 @@ public class ProductService {
         return status;
     }
     
-    public Product getByID(int pcode) throws SQLException{
+    public ProductUI getByID(int pcode) throws SQLException{
         con = DBConnection.getConnection();
         String sql = "select * from products where pcode = (?)";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, pcode);
         ResultSet rs = ps.executeQuery();
-        Product p = new Product();
+        ProductUI p = new ProductUI();
         while(rs.next()){
             p.setPname(rs.getString("pname"));
             p.setQty(rs.getInt("qty"));
@@ -66,14 +66,14 @@ public class ProductService {
         return p;
     }
 
-    public List<Product> getAll() throws SQLException{
+    public List<ProductUI> getAll() throws SQLException{
         con = DBConnection.getConnection();
         String sql = "select * from products";
         PreparedStatement ps = con.prepareStatement(sql);
         List products = new ArrayList();
         ResultSet rs = ps.executeQuery();
         while(rs.next()){
-            Product p = new Product();
+            ProductUI p = new ProductUI();
             p.setPcode(rs.getInt("pcode"));
             p.setPname(rs.getString("pname"));
             p.setQty(rs.getInt("qty"));
